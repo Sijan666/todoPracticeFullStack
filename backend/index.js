@@ -3,7 +3,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
-const { createTodo } = require('./controller/todoController')
+const { createTodo, allTodos } = require('./controller/todoController')
 const app = express()
 
 app.use(express.json())
@@ -15,6 +15,7 @@ mongoose.connect('mongodb+srv://666majharulislam_db_user:25250180@cluster0.nzeks
 
 
 app.post('/create/todo' , createTodo)
+app.get('/allTodos' , allTodos)
 
 
 
