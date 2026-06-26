@@ -1,21 +1,21 @@
 const mongoose = require('mongoose')
 const {Schema} = mongoose
 
-const todoSchema = new todo({
+const todoSchema = new Schema({
     task:{
         type : String,
-        required : true
+        require : true
     },
-    Status:{
+    priority:{
         type : String,
-        enum : ['active' , 'pending' , 'block'],
-        required : true
+        enum : ['High' , 'Medium' , "Low"],
+        require : true
     },
-    Priority:{
+    status:{
         type : String,
-        enum : ['low' , 'medium' , 'high'],
-        required : true
+        enum : ['active' , 'block' , "pending"],
+        require : true
     }
 })
 
-module.exports = mongoose.model('Todo', todoSchema)
+module.exports = mongoose.model('Todo' , todoSchema)
