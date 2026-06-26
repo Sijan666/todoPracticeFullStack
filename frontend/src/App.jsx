@@ -10,15 +10,15 @@ function App() {
   
 
   const addTask = async () => {
-
     let data = await axios.post('http://localhost:5000/create/todo',{
       task : task,
       priority : priority,
       status : status
     })
     console.log(data.data);
-    setTask(data.data)
-    
+    setTask("")
+    setPriority('')
+    setStatus('')
   }
 
   return (
@@ -29,18 +29,18 @@ function App() {
         </div>
         <div className="grid grid-cols-4 gap-20 mt-10 w-150 mx-auto justify-center">
           <div className="">
-            <input type="text" className='px-4 py-1 border border-gray-300 outline-none' placeholder='Add task here'/>
+            <input type="text" className='px-4 py-1 border border-gray-300 outline-none' placeholder='Add task here' value={task}/>
           </div>
           <div className="flex gap-2">
             <div className="">
-              <select className='border border-gray-400'>
+              <select className='border border-gray-400' value={status}>
                 <option value="active">Active</option>
                 <option value="pending">Pending</option>
                 <option value="block">Block</option>
               </select>
             </div>
             <div className="">
-              <select className='border border-gray-400'>
+              <select className='border border-gray-400' value={priority}>
                 <option value="Low">Low</option>
                 <option value="Medium">Medium</option>
                 <option value="High">High</option>
