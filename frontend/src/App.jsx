@@ -41,6 +41,9 @@ function App() {
     todos()
   })
 
+  const handleDelete = async (id) => {
+    
+  }
 
   return (
     <>
@@ -76,6 +79,7 @@ function App() {
             <li>{item.task}</li>
             <li>{item.priority}</li>
             <li>{item.status}</li>
+            <button onClick={() => handleDelete(item._id)}>delete</button>
           </div>
         ))}
       </ul>
