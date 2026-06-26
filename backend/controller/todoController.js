@@ -5,24 +5,22 @@ const createTodo = async (req,res) => {
 
     if (!task || !priority || !status) {
         return res.send({
-            success : false,
-            message : "please fill all the fields"
+            success : false ,
+            message : "fill all the fields"
         })
     }
 
-    const todo = new Todo({
+    const todos = new Todo({
         task : task,
         priority : priority,
         status : status
     })
 
-    await todo.save()
+    await todos.save()
     res.send({
         success : true,
-        message : "Todo Created"
+        message : "todo created"
     })
 }
-
-
 
 module.exports = {createTodo}
