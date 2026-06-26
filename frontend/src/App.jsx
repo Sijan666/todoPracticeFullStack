@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import axios from "axios"
 import './App.css'
+import { useEffect } from 'react'
 
 
 function App() {
@@ -9,7 +10,8 @@ function App() {
   let [task , setTask] = useState("")
   let [priority , setPriority] = useState("")
   let [status , setStatus] = useState("")
- 
+  let [data , setData] = useState([])
+
   const addTask = async () => {
     let data = await axios.post('http://localhost:5000/create/todo',{
       task : task,
@@ -17,9 +19,8 @@ function App() {
       status : status
     })
     console.log(data);
-
-
-
+      let todosData = await axios.get('http://localhost:5000/allTodos') 
+      setData(todosData.data.data)
   }
 
   const handleTask = (e) => {
@@ -32,6 +33,13 @@ function App() {
     setStatus(e.target.value)
   }
 
+  useEffect(()=>{
+    async function todos() {
+      let todosData = await axios.get('http://localhost:5000/allTodos') 
+      setData(todosData.data.data)
+    }
+    todos()
+  })
 
 
   return (
@@ -59,6 +67,18 @@ function App() {
 
 
       <button onClick={addTask}>Add</button>
+    </div>
+
+    <div className="mt-5">
+      <ul>
+        {data.map((item)=>(
+          <div key={item.id} className='grid grid-cols-3 gap-5'>
+            <li>{item.task}</li>
+            <li>{item.priority}</li>
+            <li>{item.status}</li>
+          </div>
+        ))}
+      </ul>
     </div>
 
 
