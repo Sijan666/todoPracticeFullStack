@@ -1,91 +1,43 @@
-
 import { useState } from 'react'
-import axios from "axios"
 import './App.css'
-import { useEffect } from 'react'
+
+import axios from 'axios'
 
 
 function App() {
 
-  let [task , setTask] = useState("")
-  let [priority , setPriority] = useState("")
-  let [status , setStatus] = useState("")
-  let [data , setData] = useState([])
+  let [task,setTask] = useState('')
+  let [priority,setPriority] = useState('')
 
   const addTask = async () => {
-    let data = await axios.post('http://localhost:5000/create/todo',{
+    let data  =  await axios.post('http://localhost:5000/create/todo' , {
       task : task,
-      priority : priority,
-      status : status
+      priority : priority
     })
     console.log(data);
-      let todosData = await axios.get('http://localhost:5000/allTodos') 
-      setData(todosData.data.data)
   }
 
-  const handleTask = (e) => {
+  const handleTask = (e)=>{
     setTask(e.target.value)
   }
-  const handlePriority = (e) => {
+  const handlePriority = (e)=>{
     setPriority(e.target.value)
   }
-  const handleStatus = (e) => {
-    setStatus(e.target.value)
-  }
 
-  useEffect(()=>{
-    async function todos() {
-      let todosData = await axios.get('http://localhost:5000/allTodos') 
-      setData(todosData.data.data)
-    }
-    todos()
-  })
-
-  const handleDelete = async (id) => {
-    
-  }
 
   return (
     <>
-
-
-    <div className="max-w-200 mx-auto">
-
-      <h1>Todo</h1>
-
-      <input type="text" onChange={handleTask} value={task}/>
-
-      <select onChange={handlePriority} value={priority}>
-        <option value="low">low</option>
-        <option value="high">high</option>
-        <option value="medium">medium</option>
-      </select>
-
-
-      <select onChange={handleStatus} value={status}>
-        <option value="block">block</option>
-        <option value="pending">pending</option>
-        <option value="active">active</option>
-      </select>
-
-
-      <button onClick={addTask}>Add</button>
+    <div className="max-w-300 mx-auto">
+      <div className="mt-15 flex justify-center gap-5">
+        <input onChange={handleTask} type="text" className='border-gray-400 border outline-none'/>
+        <select onChange={handlePriority}>
+          <option value="low">low</option>
+          <option value="medium">medium</option>
+          <option value="high">high</option>
+        </select>
+        <button onClick={addTask} className='border border-gray-400 bg-gray-500'>Add task</button>
+      </div>
     </div>
-
-    <div className="mt-5">
-      <ul>
-        {data.map((item)=>(
-          <div key={item.id} className='grid grid-cols-3 gap-5'>
-            <li>{item.task}</li>
-            <li>{item.priority}</li>
-            <li>{item.status}</li>
-            <button onClick={() => handleDelete(item._id)}>delete</button>
-          </div>
-        ))}
-      </ul>
-    </div>
-
-
     </>
   )
 }
