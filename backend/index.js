@@ -1,9 +1,8 @@
-require('node:dns').setServers(['1.1.1.1'] , ['8.8.8.8'])
+// require('node:dns').setServers(['1.1.1.1'] , ['8.8.8.8'])
 
 const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
-const { createTask } = require('./controller/todoController')
 const app = express()
 
 app.use(express.json())
@@ -13,7 +12,6 @@ mongoose.connect('mongodb+srv://666majharulislam_db_user:25250180@cluster0.nzeks
     console.log('Database Connected');
 })
 
-app.post('/create/todo' , createTask)
 
 
 
