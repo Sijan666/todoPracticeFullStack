@@ -13,6 +13,8 @@ mongoose.connect('mongodb+srv://666majharulislam_db_user:25250180@cluster0.nzeks
 })
 
 
+app.post('/createTodo',)
+
 
 
 app.listen(5000,()=>{
