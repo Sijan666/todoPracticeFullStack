@@ -11,4 +11,9 @@ const todoSchema = new Schema({
         required: true,
         enum: ['active','pending','block']
     },
+    priority:{
+        type: String,
+        required: true,
+        enum: ['high','low','medium']
+    }
 })
