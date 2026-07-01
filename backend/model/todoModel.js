@@ -17,3 +17,5 @@ const todoSchema = new Schema({
         enum: ['high','low','medium']
     }
 })
+
+module.exports = mongoose.model('Todo',todoSchema)
