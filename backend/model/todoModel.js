@@ -3,7 +3,12 @@ const Schema = mongoose
 
 const todoSchema = new Schema({
     task:{
-        type : String,
-        require : true
-    }
+        type: String,
+        required: true
+    },
+    status:{
+        type: String,
+        required: true,
+        enum: ['active','pending','block']
+    },
 })
