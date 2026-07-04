@@ -27,7 +27,7 @@ const allTodos = async (req,res) => {
     let data = await Todo.find({})
     res.send({
         success : true,
-        message : 'collected',
+        message : "collected",
         data : data
     })
 }
@@ -37,8 +37,18 @@ const deleteData = async (req,res) => {
     let deleteTodo = await Todo.findByIdAndDelete(id)
     res.send({
         success : true,
-        message : 'todo deleted'
+        message : "Todo deleted",
     })
 }
 
-module.exports = {createTodo , allTodos , deleteData}
+
+const updateData = async (req,res) => {
+    const {id} = req.params
+    let updateTodo = await Todo.findByIdAndUpdate({_id:id},req.body)
+    res.send({
+        success : true,
+        message : "Todo Updated",
+    })
+}
+
+module.exports = {createTodo , allTodos , deleteData , updateData}
