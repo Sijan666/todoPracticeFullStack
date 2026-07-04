@@ -15,7 +15,8 @@ mongoose.connect('mongodb+srv://666majharulislam_db_user:25250180@cluster0.nzeks
 
 app.post('/createTodo' , createTodo)
 app.get('/allTodos' , allTodos)
-app.delete('/deleteData' , deleteData)
+app.delete('/deleteData/:id' , deleteData)
+app.post('/updateData/:id' , )
 
 app.listen(5000,()=>{
     console.log('server is running');
