@@ -3,7 +3,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
-const { createTodo, allTodos, deleteData } = require('./controller/todoController')
+const { createTodo, allTodos, deleteData, updateData } = require('./controller/todoController')
 const app = express()
 
 app.use(express.json())
@@ -16,7 +16,7 @@ mongoose.connect('mongodb+srv://666majharulislam_db_user:25250180@cluster0.nzeks
 app.post('/createTodo' , createTodo)
 app.get('/allTodos' , allTodos)
 app.delete('/deleteData/:id' , deleteData)
-app.post('/updateData/:id' , )
+app.post('/updateData/:id' , updateData)
 
 app.listen(5000,()=>{
     console.log('server is running');
