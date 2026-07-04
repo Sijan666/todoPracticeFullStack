@@ -9,4 +9,17 @@ const createTodo = async (req,res) => {
             message : 'please fill all the fields'
         })
     }
+
+    const todo = new Todo({
+        task : task,
+        priority : priority
+    })
+
+    await todo.save()
+    res.send({
+        success : true,
+        message : 'todo created'
+    })
 }
+
+module.exports = {createTodo}
