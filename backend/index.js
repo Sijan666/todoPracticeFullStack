@@ -13,6 +13,7 @@ mongoose.connect('mongodb+srv://666majharulislam_db_user:25250180@cluster0.nzeks
     console.log('Database Connected');
 })
 
+app.post('/createTodo' , createTodo)
 
 app.listen(5000,()=>{
     console.log('server is running');
