@@ -32,4 +32,13 @@ const allTodos = async (req,res) => {
     })
 }
 
-module.exports = {createTodo , allTodos}
+const deleteData = async (req,res) => {
+    const {id} = req.params
+    let deleteTodo = await Todo.findByIdAndDelete(id)
+    res.send({
+        success : true,
+        message : 'todo deleted'
+    })
+}
+
+module.exports = {createTodo , allTodos , deleteData}
