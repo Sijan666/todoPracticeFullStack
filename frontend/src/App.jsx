@@ -1,7 +1,23 @@
 import './App.css';
 import { FiPlus, FiImage, FiInbox } from 'react-icons/fi';
+import axios from 'axios'
+import { useState } from 'react';
+
 
 function App() {
+
+  let [task,setTask] = useState('')
+  let [priority,setPriority] = useState('')
+
+  const addTask = async () => {
+    let data = await axios.post('http://localhost:5000/createTodo',{
+      task : task,
+      priority : priority
+    })
+  }
+
+
+
   return (
     <>
       <div className="min-h-screen bg-[#0f172a] bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] text-white flex items-center justify-center p-4 md:p-10 font-sans">
@@ -23,7 +39,7 @@ function App() {
               {/* Task Input */}
               <div className="space-y-2">
                 <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider">Task Title</label>
-                <input 
+                <input value={task}
                   type="text" 
                   placeholder="E.g., Complete UI Design..."
                   className="w-full bg-black/20 border border-white/10 rounded-2xl px-5 py-4 text-sm focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all placeholder-slate-600 text-slate-200"
@@ -33,7 +49,7 @@ function App() {
               <div className="space-y-2">
                 <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider">Priority Level</label>
                 <div className="relative">
-                  <select className="w-full appearance-none bg-black/20 border border-white/10 rounded-2xl px-5 py-4 text-sm focus:outline-none focus:border-indigo-500/50 transition-all text-slate-300 cursor-pointer outline-none">
+                  <select value={priority} className="w-full appearance-none bg-black/20 border border-white/10 rounded-2xl px-5 py-4 text-sm focus:outline-none focus:border-indigo-500/50 transition-all text-slate-300 cursor-pointer outline-none">
                     <option className="bg-slate-800 text-white" value="high">High Priority</option>
                     <option className="bg-slate-800 text-white" value="medium">Medium Priority</option>
                     <option className="bg-slate-800 text-white" value="low">Low Priority</option>
@@ -55,7 +71,7 @@ function App() {
                 </label>
               </div>
               {/* Submit Button */}
-              <button className="w-full bg-linear-to-r from-indigo-500 to-cyan-500 hover:from-indigo-600 hover:to-cyan-600 text-white font-bold py-4 rounded-2xl shadow-[0_0_20px_rgba(99,102,241,0.3)] transition-all active:scale-[0.98] flex items-center justify-center gap-2 mt-4">
+              <button onClick={addTask} className="w-full bg-linear-to-r from-indigo-500 to-cyan-500 hover:from-indigo-600 hover:to-cyan-600 text-white font-bold py-4 rounded-2xl shadow-[0_0_20px_rgba(99,102,241,0.3)] transition-all active:scale-[0.98] flex items-center justify-center gap-2 mt-4">
                 <FiPlus className="text-xl" /> Create Todo
               </button>
             </div>
