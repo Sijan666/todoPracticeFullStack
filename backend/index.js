@@ -14,13 +14,23 @@ mongoose.connect('mongodb+srv://666majharulislam_db_user:25250180@cluster0.nzeks
     console.log('Database Connected');
 })
 
+// const storage = multer.diskStorage({
+//     destination:function (req,file,cb) {
+//         cb(null,'./uploads')
+//     },
+//     filename:function (req,file,cb) {
+//         let uniqueName = 'img'+"-"+Date.now() 
+//         cb(null,uniqueName + "-" + file.originalname)
+//     }
+// })
+
 const storage = multer.diskStorage({
-    destination:function (req,file,cb) {
+    destination : function (req,file,cb) {
         cb(null,'./uploads')
     },
-    filename:function (req,file,cb) {
-        let uniqueName = 'img'+"-"+Date.now() 
-        cb(null,uniqueName + "-" + file.originalname)
+    filename : function (req,file,cb) {
+        let uniqueName = 'img' + '-' + Date.now()
+        cb('null' , uniqueName + '-' + file.originalname)
     }
 })
 
