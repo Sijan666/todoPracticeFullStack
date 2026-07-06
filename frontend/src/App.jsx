@@ -14,9 +14,19 @@ function App() {
       task : task,
       priority : priority
     })
+    console.log(data);
+    
+  }
+
+  const handleTask = (e)=>{
+    setTask(e.target.value)
   }
 
 
+
+  const handlePriority = (e)=>{
+    setPriority(e.target.value)
+  }
 
   return (
     <>
@@ -39,7 +49,7 @@ function App() {
               {/* Task Input */}
               <div className="space-y-2">
                 <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider">Task Title</label>
-                <input value={task}
+                <input onChange={handleTask} value={task}
                   type="text" 
                   placeholder="E.g., Complete UI Design..."
                   className="w-full bg-black/20 border border-white/10 rounded-2xl px-5 py-4 text-sm focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all placeholder-slate-600 text-slate-200"
@@ -49,7 +59,7 @@ function App() {
               <div className="space-y-2">
                 <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider">Priority Level</label>
                 <div className="relative">
-                  <select value={priority} className="w-full appearance-none bg-black/20 border border-white/10 rounded-2xl px-5 py-4 text-sm focus:outline-none focus:border-indigo-500/50 transition-all text-slate-300 cursor-pointer outline-none">
+                  <select onChange={handlePriority} value={priority} className="w-full appearance-none bg-black/20 border border-white/10 rounded-2xl px-5 py-4 text-sm focus:outline-none focus:border-indigo-500/50 transition-all text-slate-300 cursor-pointer outline-none">
                     <option className="bg-slate-800 text-white" value="high">High Priority</option>
                     <option className="bg-slate-800 text-white" value="medium">Medium Priority</option>
                     <option className="bg-slate-800 text-white" value="low">Low Priority</option>
