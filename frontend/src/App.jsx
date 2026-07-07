@@ -14,6 +14,7 @@ function App() {
 
   // 2. FETCH TODOS ON LOAD
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/immutability
     fetchTodos();
   }, []);
 
