@@ -3,9 +3,7 @@ import './App.css';
 import { FiPlus, FiImage, FiInbox, FiTrash2 } from 'react-icons/fi';
 
 function App() {
-  // ==========================
   // 1. STATE MANAGEMENT
-  // ==========================
   const [task, setTask] = useState('');
   const [priority, setPriority] = useState('medium');
   const [image, setImage] = useState(null);
@@ -14,9 +12,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState({ text: '', type: '' });
 
-  // ==========================
   // 2. FORM SUBMIT HANDLER
-  // ==========================
   const handleSubmit = async (e) => {
     e.preventDefault();
     
@@ -67,9 +63,7 @@ function App() {
     }
   };
 
-  // ==========================
   // 3. HELPER FUNCTION
-  // ==========================
   const getPriorityColors = (level) => {
     switch(level) {
       case 'high': return 'bg-red-500/10 text-red-400 border-red-500/20';
@@ -83,13 +77,9 @@ function App() {
     <>
       <div className="min-h-screen bg-[#0f172a] bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] text-white flex items-center justify-center p-4 md:p-10 font-sans">
         <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-3 gap-6">
-          
-          {/* ======================= */}
           {/* LEFT SIDE: FORM SECTION */}
-          {/* ======================= */}
           <div className="md:col-span-1 bg-white/2 backdrop-blur-2xl border border-white/10 rounded-4xl p-8 shadow-2xl flex flex-col gap-6 relative overflow-hidden">
             <div className="absolute -top-20 -right-20 w-40 h-40 bg-indigo-500 rounded-full blur-[80px] opacity-20"></div>
-
             <div>
               <h2 className="text-3xl font-extrabold bg-linear-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent mb-2">
                 New Task
@@ -160,9 +150,7 @@ function App() {
               </button>
             </form>
           </div>
-          {/* ======================= */}
           {/* RIGHT SIDE: TODO LIST   */}
-          {/* ======================= */}
           <div className="md:col-span-2 bg-white/2 backdrop-blur-2xl border border-white/10 rounded-4xl p-8 shadow-2xl flex flex-col h-175">
             <div className="flex justify-between items-end mb-8 border-b border-white/5 pb-5">
               <div>
