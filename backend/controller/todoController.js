@@ -1,3 +1,6 @@
+const Todo = require('../model/todoModel')
+
+
 const createTodo = async (req, res) => {
     const { task, priority } = req.body;
 
