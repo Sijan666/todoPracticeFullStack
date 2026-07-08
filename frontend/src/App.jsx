@@ -207,7 +207,7 @@ function App() {
                     {item.priority}
                   </span>
                 </div>
-                {/* Delete Button - onClick মডিফাই করা হয়েছে */}
+                {/* Delete Button */}
                 <button 
                   onClick={() => deleteTask(item._id)} 
                   className="cursor-pointer text-gray-400 hover:text-red-500 transition-colors p-2 rounded hover:bg-red-50"
