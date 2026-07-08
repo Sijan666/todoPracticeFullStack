@@ -188,7 +188,7 @@ function App() {
                   </span>
                 </div>
                 {/* Delete Button (No logic yet) */}
-                <button className="text-gray-400 hover:text-red-500 transition-colors p-2 rounded hover:bg-red-50">
+                <button className="cursor-pointer text-gray-400 hover:text-red-500 transition-colors p-2 rounded hover:bg-red-50">
                   <FiTrash2 className="text-lg" />
                 </button>
               </div>
