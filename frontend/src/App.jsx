@@ -88,6 +88,27 @@ function App() {
     return `http://localhost:5000/${normalizedPath}`;
   };
 
+  // 5. DELETE TASK HANDLER
+  const deleteTask = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:5000/deleteTask/${id}`, {
+        method: 'DELETE',
+      });
+      
+      const data = await response.json();
+
+      if (data.success) {
+        fetchTodos();
+        setMessage({ text: 'Task deleted successfully!', type: 'success' });
+      } else {
+        setMessage({ text: data.message || 'Failed to delete task', type: 'error' });
+      }
+    } catch (error) {
+      console.error("Failed to delete task:", error);
+      setMessage({ text: 'Failed to connect to the server.', type: 'error' });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 p-4 md:p-8 font-sans text-gray-800">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -97,7 +118,6 @@ function App() {
             <h2 className="text-2xl font-bold text-gray-900 mb-1">New Task</h2>
             <p className="text-sm text-gray-500">Add a new item to your list.</p>
           </div>
-          
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Task Input */}
             <div>
@@ -187,15 +207,17 @@ function App() {
                     {item.priority}
                   </span>
                 </div>
-                {/* Delete Button (No logic yet) */}
-                <button className="cursor-pointer text-gray-400 hover:text-red-500 transition-colors p-2 rounded hover:bg-red-50">
+                {/* Delete Button - onClick মডিফাই করা হয়েছে */}
+                <button 
+                  onClick={() => deleteTask(item._id)} 
+                  className="cursor-pointer text-gray-400 hover:text-red-500 transition-colors p-2 rounded hover:bg-red-50"
+                >
                   <FiTrash2 className="text-lg" />
                 </button>
               </div>
             ))}
           </div>
         </div>
-        
       </div>
     </div>
   );
