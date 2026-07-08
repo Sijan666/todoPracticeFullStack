@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const multer = require('multer');
-const { createTodo, getTodos } = require('./controller/todoController');
+const { createTodo, getTodos, deleteTodos } = require('./controller/todoController');
 
 const app = express();
 
@@ -30,6 +30,7 @@ const upload = multer({ storage: storage });
 // API Routes
 app.post('/createTodo', upload.single('image'), createTodo);
 app.get('/getTodos', getTodos);
+app.delete('/delete', deleteTodos)
 
 app.listen(5000, () => {
     console.log('Server is running on port 5000');
