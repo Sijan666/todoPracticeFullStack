@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 import { FiPlus, FiImage, FiInbox, FiTrash2 } from 'react-icons/fi';
+import axios from 'axios';
 
 function App() {
   // 1. STATE MANAGEMENT
@@ -18,15 +19,11 @@ function App() {
     fetchTodos();
   }, []);
 
+  // Removed try-catch and used axios
   const fetchTodos = async () => {
-    try {
-      const response = await fetch('http://localhost:5000/getTodos');
-      const data = await response.json();
-      if (data.success) {
-        setTodos(data.todos);
-      }
-    } catch (error) {
-      console.error("Failed to fetch todos:", error);
+    const response = await axios.get('http://localhost:5000/getTodos');
+    if (response.data.success) {
+      setTodos(response.data.todos);
     }
   };
 
@@ -47,29 +44,19 @@ function App() {
     formData.append('priority', priority);
     formData.append('image', image);
 
-    try {
-      const response = await fetch('http://localhost:5000/createTodo', {
-        method: 'POST',
-        body: formData,
-      });
+    const response = await axios.post('http://localhost:5000/createTodo', formData);
 
-      const data = await response.json();
-
-      if (data.success) {
-        setMessage({ text: 'Todo created successfully!', type: 'success' });
-        fetchTodos(); 
-        setTask('');
-        setPriority('medium');
-        setImage(null);
-      } else {
-        setMessage({ text: data.message, type: 'error' });
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      setMessage({ text: 'Failed to connect to the server.', type: 'error' });
-    } finally {
-      setLoading(false);
+    if (response.data.success) {
+      setMessage({ text: 'Todo created successfully!', type: 'success' });
+      fetchTodos(); 
+      setTask('');
+      setPriority('medium');
+      setImage(null);
+    } else {
+      setMessage({ text: response.data.message, type: 'error' });
     }
+    
+    setLoading(false);
   };
 
   // 4. HELPER FUNCTIONS
@@ -88,25 +75,10 @@ function App() {
     return `http://localhost:5000/${normalizedPath}`;
   };
 
-  // 5. DELETE TASK HANDLER
+  // 5. DELETE TASK HANDLER (Fixed)
   const deleteTask = async (id) => {
-    try {
-      const response = await fetch(`http://localhost:5000/deleteTask/${id}`, {
-        method: 'DELETE',
-      });
-      
-      const data = await response.json();
-
-      if (data.success) {
-        fetchTodos();
-        setMessage({ text: 'Task deleted successfully!', type: 'success' });
-      } else {
-        setMessage({ text: data.message || 'Failed to delete task', type: 'error' });
-      }
-    } catch (error) {
-      console.error("Failed to delete task:", error);
-      setMessage({ text: 'Failed to connect to the server.', type: 'error' });
-    }
+    await axios.delete(`http://localhost:5000/deleteTask/${id}`);
+    fetchTodos();
   };
 
   return (
