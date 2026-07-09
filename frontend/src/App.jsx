@@ -8,7 +8,6 @@ function App() {
   const [task, setTask] = useState('');
   const [priority, setPriority] = useState('medium');
   const [image, setImage] = useState(null);
-  
   const [todos, setTodos] = useState([]);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState({ text: '', type: '' });
@@ -19,11 +18,11 @@ function App() {
     fetchTodos();
   }, []);
 
-  // Removed try-catch and used axios
   const fetchTodos = async () => {
     const response = await axios.get('http://localhost:5000/getTodos');
     if (response.data.success) {
-      setTodos(response.data.todos);
+      // Fixed: Using response.data.data to match backend response
+      setTodos(response.data.data);
     }
   };
 
@@ -75,7 +74,7 @@ function App() {
     return `http://localhost:5000/${normalizedPath}`;
   };
 
-  // 5. DELETE TASK HANDLER (Fixed)
+  // 5. DELETE TASK HANDLER
   const deleteTask = async (id) => {
     await axios.delete(`http://localhost:5000/deleteTask/${id}`);
     fetchTodos();
@@ -146,19 +145,19 @@ function App() {
           <div className="flex justify-between items-center mb-6 border-b border-gray-100 pb-4">
             <h2 className="text-xl font-bold text-gray-900">Task List</h2>
             <span className="bg-blue-100 text-blue-700 text-xs px-3 py-1 rounded-full font-medium">
-              {todos.length} Items
+              {todos?.length || 0} Items
             </span>
           </div>
           <div className="flex flex-col gap-3 flex-1 overflow-y-auto">
             {/* Empty State */}
-            {todos.length === 0 && (
+            {(!todos || todos.length === 0) && (
               <div className="flex flex-col items-center justify-center h-full text-gray-400">
                 <FiInbox className="text-4xl mb-2" />
                 <p>No tasks found.</p>
               </div>
             )}
             {/* Dynamic Task List */}
-            {todos.map((item) => (
+            {todos && todos.map((item) => (
               <div key={item._id} className="border border-gray-200 rounded-lg p-4 flex gap-4 items-center bg-gray-50 hover:bg-gray-100 transition-colors">
                 {/* Image */}
                 <div className="h-16 w-16 bg-white border border-gray-200 rounded overflow-hidden shrink-0 flex items-center justify-center">
