@@ -15,6 +15,8 @@ mongoose.connect('mongodb+srv://666majharulislam_db_user:25250180@cluster0.nzeks
     .then(() => console.log('Database Connected'))
     .catch((err) => console.log('Database connection error:', err));
 
+
+// multer for images
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, './uploads');
