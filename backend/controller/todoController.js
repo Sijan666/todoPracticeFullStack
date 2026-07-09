@@ -34,13 +34,12 @@ const getTodos = async (req, res) => {
     }
 };
 
-const deleteTodos = async (req,res) => {
-    let {id} = req.params
-    let data = await Todo.findByIdAndDelete(id)
+const deleteTodos = async (req, res) => {
+    let { id } = req.params;
+    await Todo.findByIdAndDelete(id); 
     res.send({
-        success : true,
-        message : 'task has been delete'
-    })
+        success: true,
+        message: 'Task has been deleted'
+    });
 }
-
 module.exports = { createTodo, getTodos , deleteTodos };
