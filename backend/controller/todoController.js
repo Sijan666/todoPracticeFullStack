@@ -26,12 +26,12 @@ const createTodo = async (req, res) => {
 };
 
 const getTodos = async (req, res) => {
-    try {
-        const todos = await Todo.find().sort({ _id: -1 }); 
-        res.send({ success: true, todos: todos });
-    } catch (error) {
-        res.send({ success: false, message: "Error fetching tasks" });
-    }
+    const data = await Todo.find({})
+    res.send({
+        success : true,
+        message : "collected",
+        data : data
+    })
 };
 
 const deleteTodos = async (req, res) => {
