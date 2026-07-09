@@ -4,11 +4,17 @@ const createTodo = async (req, res) => {
     const { task, priority } = req.body;
 
     if (!task || !priority) {
-        return res.send({ success: false, message: "Please fill all the fields" });
+        return res.send({ 
+            success: false, 
+            message: "Please fill all the fields" 
+        });
     }
 
     if (!req.file) {
-        return res.send({ success: false, message: "Please upload an image" });
+        return res.send({ 
+            success: false, 
+            message: "Please upload an image" 
+        });
     }
 
     const todo = new Todo({
