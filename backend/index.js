@@ -30,7 +30,7 @@ const upload = multer({ storage: storage });
 // API Routes
 app.post('/createTodo', upload.single('image'), createTodo);
 app.get('/getTodos', getTodos);
-app.delete('/deleteTask/:id', deleteTodos);
+app.delete('/deleteTask/:id', deleteTodos); 
 
 app.listen(5000, () => {
     console.log('Server is running on port 5000');
