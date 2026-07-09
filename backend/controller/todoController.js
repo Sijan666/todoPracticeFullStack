@@ -11,18 +11,18 @@ const createTodo = async (req, res) => {
         return res.send({ success: false, message: "Please upload an image" });
     }
 
-    try {
-        const todo = new Todo({
-            task: task,
-            priority: priority,
-            path: req.file.path
-        });
+    const todo = new Todo({
+        task: task,
+        priority: priority,
+        path: req.file.path
+    });
 
-        await todo.save();
-        res.send({ success: true, message: 'Todo created successfully' });
-    } catch (error) {
-        res.send({ success: false, message: 'Error creating todo' });
-    }
+    await todo.save();
+    res.send({
+        success : true,
+        message : "Todo created successfully"
+    })
+
 };
 
 const getTodos = async (req, res) => {
