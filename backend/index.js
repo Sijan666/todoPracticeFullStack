@@ -1,4 +1,3 @@
-// require('node:dns').setServers(["1.1.1.1"],["8.8.8.8"])
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -11,11 +10,9 @@ app.use(express.json());
 app.use(cors());
 app.use('/uploads', express.static('uploads'));
 
-
 mongoose.connect('mongodb+srv://666majharulislam_db_user:25250180@cluster0.nzekssh.mongodb.net/todo?appName=Cluster0')
     .then(() => console.log('Database Connected'))
     .catch((err) => console.log('Database connection error:', err));
-
 
 // multer for images
 const storage = multer.diskStorage({
@@ -33,7 +30,7 @@ const upload = multer({ storage: storage });
 // API Routes
 app.post('/createTodo', upload.single('image'), createTodo);
 app.get('/getTodos', getTodos);
-app.delete('/deleteTask/:id', deleteTodos)
+app.delete('/deleteTask/:id', deleteTodos);
 
 app.listen(5000, () => {
     console.log('Server is running on port 5000');
