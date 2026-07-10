@@ -31,7 +31,7 @@ const upload = multer({ storage: storage });
 app.post('/createTodo', upload.single('image'), createTodo);
 app.get('/getTodos', getTodos);
 app.delete('/deleteTask/:id', deleteTodos);
-app.post('/updateData/:id', updateData)
+app.post('/updateData/:id', upload.single('image'), updateData);
 
 app.listen(5000, () => {
     console.log('Server is running on port 5000');
