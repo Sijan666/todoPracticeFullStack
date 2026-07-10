@@ -1,18 +1,19 @@
 import { useState, useEffect } from 'react';
 import './App.css';
-import { FiPlus, FiImage, FiInbox, FiTrash2 } from 'react-icons/fi';
+import { FiPlus, FiImage, FiInbox, FiTrash2, FiEdit, FiCheck } from 'react-icons/fi';
 import axios from 'axios';
 
 function App() {
-  // 1. STATE MANAGEMENT
+  // STATE MANAGEMENT
   const [task, setTask] = useState('');
   const [priority, setPriority] = useState('medium');
   const [image, setImage] = useState(null);
   const [todos, setTodos] = useState([]);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState({ text: '', type: '' });
+  const [editId, setEditId] = useState(null); 
 
-  // 2. FETCH TODOS ON LOAD
+  // FETCH TODOS ON LOAD
   useEffect(() => {
     // eslint-disable-next-line react-hooks/immutability
     fetchTodos();
@@ -21,17 +22,20 @@ function App() {
   const fetchTodos = async () => {
     const response = await axios.get('http://localhost:5000/getTodos');
     if (response.data.success) {
-      // Fixed: Using response.data.data to match backend response
       setTodos(response.data.data);
     }
   };
 
-  // 3. FORM SUBMIT HANDLER
+  // FORM SUBMIT HANDLER (Create & Update)
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    if (!task || !priority || !image) {
-      setMessage({ text: 'Please fill all fields and upload an image!', type: 'error' });
+    if (!task || !priority) {
+      setMessage({ text: 'Task and Priority are required!', type: 'error' });
+      return;
+    }
+    if (!editId && !image) {
+      setMessage({ text: 'Please upload an image!', type: 'error' });
       return;
     }
 
@@ -41,24 +45,31 @@ function App() {
     const formData = new FormData();
     formData.append('task', task);
     formData.append('priority', priority);
-    formData.append('image', image);
+    if (image) formData.append('image', image);
 
-    const response = await axios.post('http://localhost:5000/createTodo', formData);
-
-    if (response.data.success) {
-      setMessage({ text: 'Todo created successfully!', type: 'success' });
-      fetchTodos(); 
-      setTask('');
-      setPriority('medium');
-      setImage(null);
+    if (editId) {
+      // UPDATE LOGIC
+      const response = await axios.put(`http://localhost:5000/updateData/${editId}`, formData);
+      if (response.data.success) {
+        setMessage({ text: 'Task updated successfully!', type: 'success' });
+        setEditId(null);
+      }
     } else {
-      setMessage({ text: response.data.message, type: 'error' });
+      // CREATE LOGIC
+      const response = await axios.post('http://localhost:5000/createTodo', formData);
+      if (response.data.success) {
+        setMessage({ text: 'Task created successfully!', type: 'success' });
+      }
     }
-    
+    fetchTodos(); 
+    setTask('');
+    setPriority('medium');
+    setImage(null);
+    document.getElementById('imageInput').value = ''; 
     setLoading(false);
   };
 
-  // 4. HELPER FUNCTIONS
+  // HELPER FUNCTIONS
   const getPriorityColors = (level) => {
     switch(level) {
       case 'high': return 'bg-red-100 text-red-700 border-red-200';
@@ -74,10 +85,27 @@ function App() {
     return `http://localhost:5000/${normalizedPath}`;
   };
 
-  // 5. DELETE TASK HANDLER
+  // DELETE TASK
   const deleteTask = async (id) => {
     await axios.delete(`http://localhost:5000/deleteTask/${id}`);
     fetchTodos();
+  };
+
+  // EDIT TASK
+  const editTask = (item) => {
+    setTask(item.task);
+    setPriority(item.priority);
+    setEditId(item._id);
+    setImage(null);
+  };
+
+  // CANCEL EDIT
+  const cancelEdit = () => {
+    setEditId(null);
+    setTask('');
+    setPriority('medium');
+    setImage(null);
+    setMessage({ text: '', type: '' });
   };
 
   return (
@@ -85,9 +113,20 @@ function App() {
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* LEFT SIDE: FORM SECTION */}
         <div className="md:col-span-1 bg-white border border-gray-200 rounded-lg p-6 shadow-sm h-fit">
-          <div className="mb-6">
-            <h2 className="text-2xl font-bold text-gray-900 mb-1">New Task</h2>
-            <p className="text-sm text-gray-500">Add a new item to your list.</p>
+          <div className="mb-6 flex justify-between items-center">
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900 mb-1">
+                {editId ? 'Update Task' : 'New Task'}
+              </h2>
+              <p className="text-sm text-gray-500">
+                {editId ? 'Modify your existing task.' : 'Add a new item to your list.'}
+              </p>
+            </div>
+            {editId && (
+              <button onClick={cancelEdit} className="text-sm text-red-500 hover:underline cursor-pointer">
+                Cancel
+              </button>
+            )}
           </div>
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Task Input */}
@@ -116,8 +155,9 @@ function App() {
             </div>
             {/* Image Upload Area */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Attachment</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Attachment {editId && "(Optional)"}</label>
               <input 
+                id="imageInput"
                 type="file" 
                 accept="image/*" 
                 onChange={(e) => setImage(e.target.files[0])}
@@ -134,9 +174,9 @@ function App() {
             <button 
               type="submit"
               disabled={loading}
-              className="w-full cursor-pointer bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
+              className={`w-full cursor-pointer text-white font-medium py-2 px-4 rounded-md transition-colors flex items-center justify-center gap-2 disabled:opacity-50 ${editId ? 'bg-green-600 hover:bg-green-700' : 'bg-blue-600 hover:bg-blue-700'}`}
             >
-              {loading ? 'Saving...' : <><FiPlus /> Add Task</>}
+              {loading ? 'Saving...' : editId ? <><FiCheck /> Update Task</> : <><FiPlus /> Add Task</>}
             </button>
           </form>
         </div>
@@ -149,16 +189,14 @@ function App() {
             </span>
           </div>
           <div className="flex flex-col gap-3 flex-1 overflow-y-auto">
-            {/* Empty State */}
             {(!todos || todos.length === 0) && (
               <div className="flex flex-col items-center justify-center h-full text-gray-400">
                 <FiInbox className="text-4xl mb-2" />
                 <p>No tasks found.</p>
               </div>
             )}
-            {/* Dynamic Task List */}
             {todos && todos.map((item) => (
-              <div key={item._id} className="border border-gray-200 rounded-lg p-4 flex gap-4 items-center bg-gray-50 hover:bg-gray-100 transition-colors">
+              <div key={item._id} className={`border rounded-lg p-4 flex gap-4 items-center transition-colors ${editId === item._id ? 'border-blue-400 bg-blue-50' : 'border-gray-200 bg-gray-50 hover:bg-gray-100'}`}>
                 {/* Image */}
                 <div className="h-16 w-16 bg-white border border-gray-200 rounded overflow-hidden shrink-0 flex items-center justify-center">
                   {item.path ? (
@@ -178,10 +216,18 @@ function App() {
                     {item.priority}
                   </span>
                 </div>
-                {/* Delete Button */}
+                {/* Actions */}
+                <button 
+                  onClick={() => editTask(item)} 
+                  className="cursor-pointer text-gray-400 hover:text-blue-600 transition-colors p-2 rounded hover:bg-blue-100"
+                  title="Edit Task"
+                >
+                  <FiEdit className="text-lg" />
+                </button>
                 <button 
                   onClick={() => deleteTask(item._id)} 
                   className="cursor-pointer text-gray-400 hover:text-red-500 transition-colors p-2 rounded hover:bg-red-50"
+                  title="Delete Task"
                 >
                   <FiTrash2 className="text-lg" />
                 </button>
