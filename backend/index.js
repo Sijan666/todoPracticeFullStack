@@ -33,6 +33,7 @@ app.get('/getTodos', getTodos);
 app.delete('/deleteTask/:id', deleteTodos);
 app.post('/updateData/:id', upload.single('image'), updateData);
 
+// server
 app.listen(5000, () => {
     console.log('Server is running on port 5000');
 });
