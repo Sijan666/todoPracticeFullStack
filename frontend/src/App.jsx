@@ -49,7 +49,7 @@ function App() {
 
     if (editId) {
       // UPDATE LOGIC
-      const response = await axios.put(`http://localhost:5000/updateData/${editId}`, formData);
+      const response = await axios.post(`http://localhost:5000/updateData/${editId}`, formData);
       if (response.data.success) {
         setMessage({ text: 'Task updated successfully!', type: 'success' });
         setEditId(null);
