@@ -48,4 +48,14 @@ const deleteTodos = async (req, res) => {
     });
 }
 
-module.exports = { createTodo, getTodos , deleteTodos };
+
+const updateData = async (req,res) => {
+    let {id} = req.params
+    await Todo.findByIdAndUpdate({_id:id},req.body)
+    res.send({
+        success : true,
+        message : "Todo updated successfully"
+    })
+}
+
+module.exports = { createTodo, getTodos , deleteTodos , updateData };
