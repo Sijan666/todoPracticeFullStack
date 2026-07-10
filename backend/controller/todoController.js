@@ -48,14 +48,17 @@ const deleteTodos = async (req, res) => {
     });
 }
 
-
-const updateData = async (req,res) => {
-    let {id} = req.params
-    await Todo.findByIdAndUpdate({_id:id},req.body)
+const updateData = async (req, res) => {
+    let { id } = req.params;
+    let updateObj = { ...req.body };
+    if (req.file) {
+        updateObj.path = req.file.path;
+    }
+    await Todo.findByIdAndUpdate(id, updateObj);
     res.send({
-        success : true,
-        message : "Todo updated successfully"
-    })
+        success: true,
+        message: "Todo updated successfully"
+    });
 }
 
 module.exports = { createTodo, getTodos , deleteTodos , updateData };
