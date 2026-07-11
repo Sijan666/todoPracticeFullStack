@@ -159,8 +159,6 @@ function App() {
               <input 
                 id="imageInput"
                 type="file" 
-                accept="image/*" 
-                onChange={(e) => setImage(e.target.files[0])}
                 className="w-full border border-gray-300 rounded-md px-4 py-2 file:mr-4 file:py-1 file:px-3 file:rounded file:border-0 file:bg-gray-100 file:text-gray-700 cursor-pointer"
               />
             </div>
