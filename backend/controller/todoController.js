@@ -23,14 +23,14 @@ const createTodo = async (req,res) => {
     })
 }
 
-const getTodos = async (req, res) => {
-    const data = await Todo.find({});
+const allTodo = async (req,res) => {
+    const data = await Todo.find({})
     res.send({
         success : true,
-        message : "collected",
+        message : "collected all data",
         data : data
-    });
-};
+    })
+}
 
 const deleteTodos = async (req, res) => {
     let { id } = req.params;
