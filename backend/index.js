@@ -3,7 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const multer = require('multer');
-const { createTodo, getTodos, deleteTodos, updateData } = require('./controller/todoController');
+const { createTodo, deleteTodos, updateData, allTodo } = require('./controller/todoController');
 
 const app = express();
 
@@ -13,7 +13,6 @@ app.use('/uploads', express.static('uploads'));
 
 mongoose.connect('mongodb+srv://666majharulislam_db_user:25250180@cluster0.nzekssh.mongodb.net/todo?appName=Cluster0')
     .then(() => console.log('Database Connected'))
-    .catch((err) => console.log('Database connection error:', err));
 
 // multer for images
 const storage = multer.diskStorage({
@@ -30,7 +29,7 @@ const upload = multer({ storage: storage });
 
 // API Routes
 app.post('/createTodo', upload.single('image'), createTodo);
-app.get('/getTodos', getTodos);
+app.get('/allTodo', allTodo);
 app.delete('/deleteTask/:id', deleteTodos);
 app.post('/updateData/:id', upload.single('image'), updateData);
 
