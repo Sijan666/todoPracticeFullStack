@@ -31,6 +31,7 @@ const App = () => {
         setPriority(e.target.value);
     }
 
+    // all task
     useEffect(()=>{
         async function todos(){
             let todosData = await axios.get('http://localhost:5000/allTodo')
@@ -39,6 +40,7 @@ const App = () => {
         todos()
     },[])
 
+    // delete task
     let handleDelete = async (id) => {
         let data = await axios.delete(`http://localhost:5000/deleteTask/${id}`)
         console.log(data);
@@ -46,6 +48,7 @@ const App = () => {
         setData(todosData.data.data);
     }
 
+    // edit task
     let handleEdit = async (item) => {
         setTask(item.task)
         setPriority(item.priority)
@@ -54,6 +57,7 @@ const App = () => {
         // setisImage(item.path)
     }
 
+    // update task
     let handleUpdate = async () => {
         let data = await axios.post(`http://localhost:5000/updateData/${id}`, {
             'task': task,
@@ -93,6 +97,7 @@ const App = () => {
 //     document.querySelector("form").reset(); 
 //   }
 
+    // create task
     const handleSubmit = async (e) => {
       e.preventDefault()
       let formData = new FormData(e.currentTarget);
@@ -106,7 +111,6 @@ const App = () => {
 
       let todosData = await axios.get('http://localhost:5000/allTodo')
       setData(todosData.data.data);
-
       setTask("")
       setPriority("")
       setisImage('')
