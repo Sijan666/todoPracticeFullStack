@@ -2,7 +2,8 @@ const Todo = require('../model/todoModel');
 
 const createTodo = async (req,res) => {
     const {task , priority} = req.body
-
+    // const fileType = req.file.mimetype
+    
     if (!task || !priority) {
         return res.send({
             success : false,
@@ -17,11 +18,12 @@ const createTodo = async (req,res) => {
         })
     }
 
-    const todos = new Todo({
-        task : task,
-        priority : priority,
-        path : req.file.path
-    })
+const todos = new Todo({
+    task: req.body.task,
+    priority: req.body.priority,
+    path: req.file.path,
+    // mediaType: fileType
+});
 
     await todos.save()
     res.send({
