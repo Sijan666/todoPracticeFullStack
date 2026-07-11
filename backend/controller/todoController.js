@@ -50,4 +50,4 @@ const updateData = async (req, res) => {
     });
 }
 
-module.exports = { createTodo, getTodos , deleteTodos , updateData };
+module.exports = { createTodo, allTodo , deleteTodos , updateData };
