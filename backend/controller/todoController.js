@@ -42,12 +42,8 @@ const deleteTodos = async (req, res) => {
 }
 
 const updateData = async (req, res) => {
-    let { id } = req.params;
-    let updateObj = { ...req.body };
-    if (req.file) {
-        updateObj.path = req.file.path;
-    }
-    await Todo.findByIdAndUpdate(id, updateObj);
+    const { id } = req.params;
+    const updateTask = await Todo.findByIdAndUpdate({_id:id},req.body)
     res.send({
         success: true,
         message: "Todo updated successfully"
