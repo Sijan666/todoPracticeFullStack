@@ -184,6 +184,11 @@ const App = () => {
                 <li key={item.id || item._id} className="flex items-center gap-4 bg-gray-50 border border-gray-200 p-3 rounded-lg hover:bg-gray-100">
                   {/* image */}
                   <img src={`http://localhost:5000/${item.path}`} alt="" className="w-12 h-12 object-cover rounded border border-gray-300 shrink-0"/>
+                  <div className="">
+                    {/* {item.mediaType === 'image' && <img width={50} src={`http://localhost:5000/${item.path}`} alt="media" />}
+                    {item.mediaType === 'video' && <video width={150} src={`http://localhost:5000/${item.path}`} controls />}
+                    {item.mediaType === 'audio' && <audio src={`http://localhost:5000/${item.path}`} controls />} */}
+                  </div>
                   {/* task */}
                   <span className="flex-1 font-semibold text-gray-800 truncate">
                     {item.task}
