@@ -1,34 +1,27 @@
 const Todo = require('../model/todoModel');
 
-const createTodo = async (req, res) => {
-    const { task, priority } = req.body;
+const createTodo = async (req,res) => {
+    const {task , priority} = req.body
 
     if (!task || !priority) {
-        return res.send({ 
-            success: false, 
-            message: "Please fill all the fields" 
-        });
+        return res.send({
+            success : false,
+            message : "please fill all the gap"
+        })
     }
 
-    if (!req.file) {
-        return res.send({ 
-            success: false, 
-            message: "Please upload an image" 
-        });
-    }
+    const todos = new Todo({
+        task : task,
+        priority : priority,
+        path : req.file.path
+    })
 
-    const todo = new Todo({
-        task: task,
-        priority: priority,
-        path: req.file.path
-    });
-
-    await todo.save();
+    await todos.save()
     res.send({
         success : true,
-        message : "Todo created successfully"
-    });
-};
+        message : "todo created"
+    })
+}
 
 const getTodos = async (req, res) => {
     const data = await Todo.find({});
