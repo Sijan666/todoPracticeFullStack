@@ -7,14 +7,14 @@ const createTodo = async (req,res) => {
     if (!task || !priority) {
         return res.send({
             success : false,
-            message : "please fill all the gap"
+            message : "task and priority fields are required"
         })
     }
 
     if (!req.file) {
         res.send({
             success : false,
-            message : "please select an image"
+            message : "please upload a media file"
         })
     }
 
@@ -28,7 +28,7 @@ const todos = new Todo({
     await todos.save()
     res.send({
         success : true,
-        message : "todo created"
+        message : "Task created successfully"
     })
 }
 
@@ -36,7 +36,7 @@ const allTodo = async (req,res) => {
     const data = await Todo.find({})
     res.send({
         success : true,
-        message : "collected all data",
+        message : "All tasks fetched successfully",
         data : data
     })
 }
@@ -46,7 +46,7 @@ const deleteTodos = async (req, res) => {
     await Todo.findByIdAndDelete(id); 
     res.send({
         success: true,
-        message: 'Task has been deleted'
+        message: 'Task deleted successfully'
     });
 }
 
@@ -55,7 +55,7 @@ const updateData = async (req, res) => {
     const updateTask = await Todo.findByIdAndUpdate({_id:id},req.body)
     res.send({
         success: true,
-        message: "Todo updated successfully"
+        message: "Task updated successfully"
     });
 }
 
