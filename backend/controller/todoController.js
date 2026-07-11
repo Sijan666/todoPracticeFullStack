@@ -10,6 +10,13 @@ const createTodo = async (req,res) => {
         })
     }
 
+    if (!req.file) {
+        res.send({
+            success : false,
+            message : "please fill the image input field"
+        })
+    }
+
     const todos = new Todo({
         task : task,
         priority : priority,
