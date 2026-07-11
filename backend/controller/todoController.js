@@ -13,7 +13,7 @@ const createTodo = async (req,res) => {
     if (!req.file) {
         res.send({
             success : false,
-            message : "please fill the image input field"
+            message : "please select an image"
         })
     }
 
