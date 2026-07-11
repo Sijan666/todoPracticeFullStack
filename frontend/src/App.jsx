@@ -215,18 +215,10 @@ function App() {
                   </span>
                 </div>
                 {/* Actions */}
-                <button 
-                  onClick={() => editTask(item)} 
-                  className="cursor-pointer text-gray-400 hover:text-blue-600 transition-colors p-2 rounded hover:bg-blue-100"
-                  title="Edit Task"
-                >
+                <button onClick={() => editTask(item)} className="cursor-pointer text-gray-400 hover:text-blue-600 transition-colors p-2 rounded hover:bg-blue-100" title="Edit Task">
                   <FiEdit className="text-lg" />
                 </button>
-                <button 
-                  onClick={() => deleteTask(item._id)} 
-                  className="cursor-pointer text-gray-400 hover:text-red-500 transition-colors p-2 rounded hover:bg-red-50"
-                  title="Delete Task"
-                >
+                <button onClick={() => deleteTask(item._id)} className="cursor-pointer text-gray-400 hover:text-red-500 transition-colors p-2 rounded hover:bg-red-50" title="Delete Task">
                   <FiTrash2 className="text-lg" />
                 </button>
               </div>
