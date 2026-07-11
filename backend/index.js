@@ -11,6 +11,7 @@ app.use(express.json());
 app.use(cors());
 app.use('/uploads', express.static('uploads'));
 
+// mongo atlas server
 mongoose.connect('mongodb+srv://666majharulislam_db_user:25250180@cluster0.nzekssh.mongodb.net/todo?appName=Cluster0')
     .then(() => console.log('Database Connected'))
 
@@ -27,7 +28,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-// API Routes
+// api routes
 app.post('/createTodo', upload.single('image'), createTodo);
 app.get('/allTodo', allTodo);
 app.delete('/deleteTask/:id', deleteTodos);
