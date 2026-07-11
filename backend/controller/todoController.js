@@ -1,5 +1,6 @@
 const Todo = require('../model/todoModel');
 
+// create task
 const createTodo = async (req,res) => {
     const {task , priority} = req.body
     // const fileType = req.file.mimetype
@@ -32,6 +33,7 @@ const todos = new Todo({
     })
 }
 
+// alltasks
 const allTodo = async (req,res) => {
     const data = await Todo.find({})
     res.send({
@@ -41,6 +43,7 @@ const allTodo = async (req,res) => {
     })
 }
 
+// deletetasks
 const deleteTodos = async (req, res) => {
     let { id } = req.params;
     await Todo.findByIdAndDelete(id); 
@@ -50,6 +53,7 @@ const deleteTodos = async (req, res) => {
     });
 }
 
+// updatetasks
 const updateData = async (req, res) => {
     const { id } = req.params;
     const updateTask = await Todo.findByIdAndUpdate({_id:id},req.body)
