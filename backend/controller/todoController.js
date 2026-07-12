@@ -20,8 +20,8 @@ const createTodo = async (req,res) => {
     }
 
 const todos = new Todo({
-    task: req.body.task,
-    priority: req.body.priority,
+    task: task,
+    priority: priority,
     path: req.file.path,
     // mediaType: fileType
 });
