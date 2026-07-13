@@ -45,7 +45,7 @@ const createTodo = async (req, res) => {
 const allTodo = async (req, res) => {
     try {
         const data = await Todo.find({});
-        res.send({
+        res.status(200).send({
             success: true,
             message: "All tasks fetched successfully",
             data: data
