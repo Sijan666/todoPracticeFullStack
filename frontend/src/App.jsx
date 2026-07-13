@@ -78,7 +78,7 @@ const App = () => {
 //       const priority = formData.get('priority')
 //       const image = formData.get('image')
 //       console.log(task,priority,image);
-    
+
 //     if (file) {
 //       formData.append('image', file);
 //     }
