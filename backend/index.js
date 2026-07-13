@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const multer = require('multer');
 const { createTodo, deleteTodos, updateData, allTodo } = require('./controller/todoController');
+const storage = require('./utlis/storage')
+
 
 const app = express();
 
@@ -16,18 +18,7 @@ mongoose.connect('mongodb+srv://666majharulislam_db_user:25250180@cluster0.nzeks
     .then(() => console.log('Database Connected successfully'))
     .catch((error) => console.log('Database connection failed:', error));
 
-// multer for images
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, './uploads');
-    },
-    filename: function (req, file, cb) {
-        let uniqueName = 'img-' + Date.now();
-        cb(null, uniqueName + '-' + file.originalname);
-    }
-});
 
-const upload = multer({ storage: storage });
 
 // api routes
 app.post('/createTodo', upload.single('image'), createTodo);
