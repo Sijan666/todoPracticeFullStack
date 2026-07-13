@@ -28,7 +28,7 @@ const createTodo = async (req, res) => {
         });
 
         await todos.save();
-        res.send({
+        res.status(200).send({
             success: true,
             message: "Task created successfully"
         });
