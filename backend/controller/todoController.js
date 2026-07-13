@@ -64,7 +64,7 @@ const deleteTodos = async (req, res) => {
     try {
         let { id } = req.params;
         await Todo.findByIdAndDelete(id); 
-        res.send({
+        res.status(200).send({
             success: true,
             message: 'Task deleted successfully'
         });
