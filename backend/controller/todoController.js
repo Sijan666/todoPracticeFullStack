@@ -82,7 +82,7 @@ const updateData = async (req, res) => {
     try {
         const { id } = req.params;
         const updateTask = await Todo.findByIdAndUpdate({ _id: id }, req.body);
-        res.send({
+        res.status(200).send({
             success: true,
             message: "Task updated successfully"
         });
