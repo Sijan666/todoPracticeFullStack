@@ -6,7 +6,6 @@ const multer = require('multer');
 const { createTodo, deleteTodos, updateData, allTodo } = require('./controller/todoController');
 const storage = require('./utlis/storage')
 
-
 const app = express();
 
 app.use(express.json());
@@ -17,8 +16,6 @@ app.use('/uploads', express.static('uploads'));
 mongoose.connect('mongodb+srv://666majharulislam_db_user:25250180@cluster0.nzekssh.mongodb.net/todo?appName=Cluster0')
     .then(() => console.log('Database Connected successfully'))
     .catch((error) => console.log('Database connection failed:', error));
-
-
 
 // api routes
 app.post('/createTodo', upload.single('image'), createTodo);
