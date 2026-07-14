@@ -2,7 +2,7 @@
 const express = require('express');
 const cors = require('cors');
 const { createTodo, deleteTodos, updateData, allTodo } = require('./controller/todoController');
-const storage = require('./utlis/storage')
+const upload = require('./utlis/storage')
 const mongoDb = require('./config/mongoDb')
 
 const app = express();
@@ -11,6 +11,7 @@ app.use(express.json());
 app.use(cors());
 app.use('/uploads', express.static('uploads'));
 
+mongoDb()
 
 // api routes
 app.post('/createTodo', upload.single('image'), createTodo);
