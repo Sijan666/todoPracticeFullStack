@@ -9,19 +9,6 @@ const App = () => {
     let [data, setData] = useState([])
     let [isUpdate,setisUpdate] = useState(false)
     let [id, setId] = useState('')
-    let [isImage, setisImage] = useState(null)
-
-    // let addTask = async () => {
-    //     let respone = await axios.post('http://localhost:5000/createTodo', {
-    //         'task': task,
-    //         'priority': priority,
-    //     });
-    //     console.log(respone.data);
-    //     let todosData = await axios.get('http://localhost:5000/allTodos')
-    //     setData(todosData.data.data);
-    //     setTask("")
-    //     setPriority("")
-    // }
 
     let handleTask = (e) => {
         setTask(e.target.value);
@@ -54,48 +41,24 @@ const App = () => {
         setPriority(item.priority)
         setisUpdate(true)
         setId(item._id)
-        // setisImage(item.path)
     }
 
     // update task
-    let handleUpdate = async () => {
-        let data = await axios.post(`http://localhost:5000/updateData/${id}`, {
-            'task': task,
-            'priority': priority,
-        })
+    let handleUpdate = async (e) => {
+        let form = e.target.closest('form'); 
+        let formData = new FormData(form);
+
+        let data = await axios.post(`http://localhost:5000/updateData/${id}`, formData)
         console.log(data);
+        
         let todosData = await axios.get('http://localhost:5000/allTodo')
         setData(todosData.data.data);
         setTask("")
         setPriority("")
         setisUpdate(false);
         setId('');
+        form.reset(); // Input fields clear korar jnno
     }
-  
-// let handleUpdate = async () => {
-//     let formData = new FormData();
-//       const task = formData.get('task')
-//       const priority = formData.get('priority')
-//       const image = formData.get('image')
-//       console.log(task,priority,image);
-
-//     if (file) {
-//       formData.append('image', file);
-//     }
-
-//     let data = await axios.post(`http://localhost:5000/updateData/${id}`, formData);
-//     console.log(data);
-
-//     let todosData = await axios.get('http://localhost:5000/allTodo');
-//     setData(todosData.data.data);
-
-//     setTask("");
-//     setPriority("");
-//     setisUpdate(false);
-//     setId('');
-//     setFile(null);
-//     document.querySelector("form").reset(); 
-//   }
 
     // create task
     const handleSubmit = async (e) => {
@@ -113,7 +76,7 @@ const App = () => {
       setData(todosData.data.data);
       setTask("")
       setPriority("")
-      setisImage('')
+      e.target.reset();
     }
 
   return (
@@ -155,14 +118,14 @@ const App = () => {
             {/* image */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Attachment</label>
-              <input name="image" value={isImage}
+              <input name="image"
                 type="file" 
                 className="w-full border border-gray-300 rounded-md px-4 py-2 file:mr-4 file:py-1 file:px-3 file:rounded file:border-0 file:bg-gray-100 file:text-gray-700 cursor-pointer"
               />
             </div>
             {/* buttons */}
             {isUpdate ?
-            <button onClick={handleUpdate}
+            <button onClick={(e) => handleUpdate(e)}
               type="button"
               className="w-full cursor-pointer text-white font-medium py-2 px-4 rounded-md transition-colors flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700">
               Update Task
@@ -188,11 +151,6 @@ const App = () => {
                 <li key={item.id || item._id} className="flex items-center gap-4 bg-gray-50 border border-gray-200 p-3 rounded-lg hover:bg-gray-100">
                   {/* image */}
                   <img src={`http://localhost:5000/${item.path}`} alt="" className="w-12 h-12 object-cover rounded border border-gray-300 shrink-0"/>
-                  <div className="">
-                    {/* {item.mediaType === 'image' && <img width={50} src={`http://localhost:5000/${item.path}`} alt="media" />}
-                    {item.mediaType === 'video' && <video width={150} src={`http://localhost:5000/${item.path}`} controls />}
-                    {item.mediaType === 'audio' && <audio src={`http://localhost:5000/${item.path}`} controls />} */}
-                  </div>
                   {/* task */}
                   <span className="flex-1 font-semibold text-gray-800 truncate">
                     {item.task}
