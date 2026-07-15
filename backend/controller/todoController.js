@@ -77,7 +77,7 @@ const deleteTodos = async (req, res) => {
     }
 }
 
-// updatetasks (CHANGES HERE)
+// updatetasks
 const updateData = async (req, res) => {
     try {
         const { id } = req.params;
