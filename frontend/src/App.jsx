@@ -57,7 +57,7 @@ const App = () => {
         setPriority("")
         setisUpdate(false);
         setId('');
-        form.reset(); // Input fields clear korar jnno
+        form.reset();
     }
 
     // create task
