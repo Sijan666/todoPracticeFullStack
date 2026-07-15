@@ -14,11 +14,11 @@ const todoSchema = new Schema({
     path: {
         type: String
     },
-    // mediaType: {
-    //     type: String,
-    //     enum: ['image', 'video', 'audio'], 
-    //     required: false 
-    // }
+    mediaType: {
+        type: String,
+        enum: ['image', 'video', 'audio'], 
+        required: false 
+    }
 });
 
 module.exports = mongoose.model('Todo', todoSchema);
