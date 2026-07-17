@@ -26,12 +26,12 @@ const createTodo = async (req, res) => {
         });
 
         await todos.save();
-        res.status(201).json({
+        return res.status(201).json({
             success: true,
             message: "Task created successfully"
         });
     } catch (error) {
-        res.status(500).json({
+        return res.status(500).json({
             success: false,
             message: "Error occurred while creating task",
             error: error.message
@@ -43,13 +43,13 @@ const createTodo = async (req, res) => {
 const allTodo = async (req, res) => {
     try {
         const data = await Todo.find({});
-        res.status(200).json({
+        return res.status(200).json({
             success: true,
             message: "All tasks fetched successfully",
             data: data
         });
     } catch (error) {
-        res.status(500).json({
+        return res.status(500).json({
             success: false,
             message: "Error occurred while fetching tasks",
             error: error.message
@@ -61,14 +61,13 @@ const allTodo = async (req, res) => {
 const deleteTodos = async (req, res) => {
     try {
         let { id } = req.params;
-        const deletedTask = await Todo.findByIdAndDelete(id); 
-
-        res.status(200).json({
+        const deletedTask = await Todo.findByIdAndDelete(id);
+        return res.status(200).json({
             success: true,
             message: 'Task deleted successfully'
         });
     } catch (error) {
-        res.status(500).json({
+        return res.status(500).json({
             success: false,
             message: "Error occurred while deleting task",
             error: error.message
@@ -80,18 +79,18 @@ const deleteTodos = async (req, res) => {
 const updateData = async (req, res) => {
     try {
         const { id } = req.params;
-        
+
         if (req.file) {
             req.body.path = req.file.path;
         }
-
+        
         const updateTask = await Todo.findByIdAndUpdate({ _id: id }, req.body);
-        res.status(200).json({
+        return res.status(200).json({
             success: true,
             message: "Task updated successfully"
         });
     } catch (error) {
-        res.status(500).json({
+        return res.status(500).json({
             success: false,
             message: "Error occurred while updating task",
             error: error.message
