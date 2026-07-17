@@ -4,17 +4,16 @@ const Todo = require('../model/todoModel');
 const createTodo = async (req, res) => {
     try {
         const { task, priority } = req.body;
-        // const fileType = req.file.mimetype;
         
         if (!task || !priority) {
-            return res.send({
+            return res.status(400).send({
                 success: false,
                 message: "task and priority fields are required"
             });
         }
 
         if (!req.file) {
-            return res.send({
+            return res.status(400).send({
                 success: false,
                 message: "please upload a media file"
             });
@@ -24,7 +23,6 @@ const createTodo = async (req, res) => {
             task: task,
             priority: priority,
             path: req.file.path,
-            // mediaType: fileType
         });
 
         await todos.save();
@@ -63,7 +61,8 @@ const allTodo = async (req, res) => {
 const deleteTodos = async (req, res) => {
     try {
         let { id } = req.params;
-        await Todo.findByIdAndDelete(id); 
+        const deletedTask = await Todo.findByIdAndDelete(id); 
+
         res.status(200).send({
             success: true,
             message: 'Task deleted successfully'
