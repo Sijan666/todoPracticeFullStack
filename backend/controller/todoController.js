@@ -1,7 +1,7 @@
 const Todo = require('../model/todoModel');
 
 // create task
-const createTodo = async (req, res) => {
+const createtodo = async (req, res) => {
     try {
         const { task, priority } = req.body;
         
@@ -40,7 +40,7 @@ const createTodo = async (req, res) => {
 }
 
 // alltasks
-const allTodo = async (req, res) => {
+const alltodo = async (req, res) => {
     try {
         const data = await Todo.find({});
         return res.status(200).json({
@@ -58,7 +58,7 @@ const allTodo = async (req, res) => {
 }
 
 // deletetasks
-const deleteTodos = async (req, res) => {
+const deletetodos = async (req, res) => {
     try {
         let { id } = req.params;
         const deletedTask = await Todo.findByIdAndDelete(id);
@@ -76,14 +76,14 @@ const deleteTodos = async (req, res) => {
 }
 
 // updatetasks
-const updateData = async (req, res) => {
+const updatedata = async (req, res) => {
     try {
         const { id } = req.params;
 
         if (req.file) {
             req.body.path = req.file.path;
         }
-        
+
         const updateTask = await Todo.findByIdAndUpdate({ _id: id }, req.body);
         return res.status(200).json({
             success: true,
@@ -98,4 +98,4 @@ const updateData = async (req, res) => {
     }
 }
 
-module.exports = { createTodo, allTodo, deleteTodos, updateData };
+module.exports = { createtodo, alltodo, deletetodos, updatedata };
