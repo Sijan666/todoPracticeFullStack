@@ -6,14 +6,14 @@ const createTodo = async (req, res) => {
         const { task, priority } = req.body;
         
         if (!task || !priority) {
-            return res.status(400).send({
+            return res.status(400).json({
                 success: false,
                 message: "task and priority fields are required"
             });
         }
 
         if (!req.file) {
-            return res.status(400).send({
+            return res.status(400).json({
                 success: false,
                 message: "please upload a media file"
             });
@@ -26,12 +26,12 @@ const createTodo = async (req, res) => {
         });
 
         await todos.save();
-        res.status(201).send({
+        res.status(201).json({
             success: true,
             message: "Task created successfully"
         });
     } catch (error) {
-        res.status(500).send({
+        res.status(500).json({
             success: false,
             message: "Error occurred while creating task",
             error: error.message
@@ -43,13 +43,13 @@ const createTodo = async (req, res) => {
 const allTodo = async (req, res) => {
     try {
         const data = await Todo.find({});
-        res.status(200).send({
+        res.status(200).json({
             success: true,
             message: "All tasks fetched successfully",
             data: data
         });
     } catch (error) {
-        res.status(500).send({
+        res.status(500).json({
             success: false,
             message: "Error occurred while fetching tasks",
             error: error.message
@@ -63,12 +63,12 @@ const deleteTodos = async (req, res) => {
         let { id } = req.params;
         const deletedTask = await Todo.findByIdAndDelete(id); 
 
-        res.status(200).send({
+        res.status(200).json({
             success: true,
             message: 'Task deleted successfully'
         });
     } catch (error) {
-        res.status(500).send({
+        res.status(500).json({
             success: false,
             message: "Error occurred while deleting task",
             error: error.message
@@ -86,12 +86,12 @@ const updateData = async (req, res) => {
         }
 
         const updateTask = await Todo.findByIdAndUpdate({ _id: id }, req.body);
-        res.status(200).send({
+        res.status(200).json({
             success: true,
             message: "Task updated successfully"
         });
     } catch (error) {
-        res.status(500).send({
+        res.status(500).json({
             success: false,
             message: "Error occurred while updating task",
             error: error.message
