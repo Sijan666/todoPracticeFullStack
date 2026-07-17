@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const { createTodo, allTodo, deleteTodos, updateData } = require('../controller/todoController');
+const { createtodo, alltodo, deletetodos, updatedata } = require('../controller/todoController');
 const upload = require('../utlis/storage');
 
-router.post('/createTodo', upload.single('image'), createTodo);
-router.get('/allTodo', allTodo);
-router.delete('/deleteTask/:id', deleteTodos);
-router.post('/updateData/:id', upload.single('image'), updateData);
+router.post('/createtodo', upload.single('image'), createTodo);
+router.get('/alltodo', allTodo);
+router.delete('/deletetodos/:id', deleteTodos);
+router.post('/updatedata/:id', upload.single('image'), updateData);
 
 module.exports = router;
