@@ -3,7 +3,6 @@ const express = require('express');
 const cors = require('cors');
 const mongoDb = require('./config/mongoDb');
 const todoRoutes = require('./routes/todoRoute');
-
 const app = express();
 
 // middlewares
