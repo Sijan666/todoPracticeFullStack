@@ -13,7 +13,7 @@ const todoSchema = new Schema({
     },
     path: {
         type: String
-    },
+    }
 });
 
 module.exports = mongoose.model('Todo', todoSchema);
