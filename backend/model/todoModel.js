@@ -6,6 +6,11 @@ const todoSchema = new Schema({
         type: String,
         required: true,
     },
+    status: {
+        type: String,
+        enum: ['active' , 'pending' , 'block'],
+        default : 'pending'
+    },
     priority: {
         type: String,
         required: true,
