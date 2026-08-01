@@ -1,8 +1,33 @@
 const Todo = require('../model/todoModel');
+const cloudinary = require('cloudinary').v2
+
+// Configuration
+cloudinary.config({ 
+    cloud_name: 'fyhbhcos', 
+    api_key: '318899669286262', 
+    api_secret: 'PuEUKxjtbbCbG9-24_YfGtvA_Sc'
+});
+
 
 // create task
 const createtodo = async (req, res) => {
     try {
+
+        // Upload an image
+        const uploadResult = await cloudinary.uploader
+        .upload(
+            req.file.path
+        )
+        .catch((error) => {
+            console.log(error);
+        });
+
+        console.log(uploadResult);
+        res.status(201).json({
+            message : "image upload successfully",
+            url : uploadResult.url
+        })
+
         const { task, priority } = req.body;
         
         if (!task || !priority) {
@@ -61,6 +86,16 @@ const alltodo = async (req, res) => {
 const deletetodos = async (req, res) => {
     try {
         let { id } = req.params;
+
+        // delete image
+        const deleteResult = await cloudinary.uploader
+        .destroy(id)
+        .catch((error) => {
+            console.log(error);
+        });
+        console.log(deleteResult);
+        res.send(deleteResult)
+
         const deletedTask = await Todo.findByIdAndDelete(id);
         return res.status(200).json({
             success: true,
