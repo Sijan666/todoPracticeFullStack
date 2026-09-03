@@ -36,6 +36,7 @@ const upload = require('../utils/storage');
  */
 router.post('/createtodo', upload.single('image'), createtodo);
 
+// alltodo
 /**
  * @swagger
  * /alltodo:
