@@ -52,6 +52,7 @@ router.post('/createtodo', upload.single('image'), createtodo);
  */
 router.get('/alltodo', alltodo);
 
+// deletetask
 /**
  * @swagger
  * /deletetodos/{id}:
