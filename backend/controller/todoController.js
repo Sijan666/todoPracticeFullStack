@@ -83,14 +83,12 @@ const alltodo = async (req, res) => {
 const deletetodos = async (req, res) => {
     try {
         let { id } = req.params;
-
         // delete image
         const deleteResult = await cloudinary.uploader
         .destroy(id)
         .catch((error) => {
             console.log(error);
         });
-        console.log(deleteResult);
         res.send(deleteResult)
 
         const deletedTask = await Todo.findByIdAndDelete(id);
