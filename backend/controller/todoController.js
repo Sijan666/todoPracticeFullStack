@@ -27,7 +27,6 @@ const createtodo = async (req, res) => {
         })
 
         const { task, priority } = req.body;
-        
         if (!task || !priority) {
             return res.status(400).json({
                 success: false,
