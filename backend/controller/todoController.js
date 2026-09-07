@@ -109,12 +109,11 @@ const deletetodos = async (req, res) => {
 const updatedata = async (req, res) => {
     try {
         const { id } = req.params;
-
         // for image
         if (req.file) {
             req.body.path = req.file.path;
         }
-
+        
         const updateTask = await Todo.findByIdAndUpdate({ _id: id }, req.body);
         return res.status(200).json({
             success: true,
