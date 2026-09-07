@@ -8,11 +8,9 @@ cloudinary.config({
     api_secret: 'PuEUKxjtbbCbG9-24_YfGtvA_Sc'
 });
 
-
 // create task
 const createtodo = async (req, res) => {
     try {
-
         // upload an image
         const uploadResult = await cloudinary.uploader
         .upload(
