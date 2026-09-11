@@ -1,7 +1,12 @@
 const Todo = require('../model/todoModel');
 const cloudinary = require('cloudinary').v2
 
-
+// cloudinary configuration
+cloudinary.config({ 
+    cloud_name: 'fyhbhcos', 
+    api_key: '318899669286262', 
+    api_secret: 'PuEUKxjtbbCbG9-24_YfGtvA_Sc'
+});
 
 // create task
 const createtodo = async (req, res) => {
