@@ -61,7 +61,7 @@ const createtodo = async (req, res) => {
     }
 }
 
-// alltasks
+alltasks
 const alltodo = async (req, res) => {
     try {
         const data = await Todo.find({});
