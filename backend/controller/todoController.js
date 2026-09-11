@@ -11,7 +11,7 @@ cloudinary.config({
 // create task
 const createtodo = async (req, res) => {
     try {
-        // upload an image
+        upload an image
         const uploadResult = await cloudinary.uploader
         .upload(
             req.file.path
