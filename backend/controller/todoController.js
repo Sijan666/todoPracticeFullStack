@@ -109,7 +109,7 @@ const deletetodos = async (req, res) => {
 const updatedata = async (req, res) => {
     try {
         const { id } = req.params;
-        update image
+        // update image
         if (req.file) {
             req.body.path = req.file.path;
         }
