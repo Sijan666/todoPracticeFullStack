@@ -23,7 +23,7 @@ const createtodo = async (req, res) => {
         console.log(uploadResult);
         res.status(201).json({
             message : "image upload successfully",
-            url : uploadResult.url
+            url : uploadResult.url?
         })
 
         const { task, priority } = req.body;
