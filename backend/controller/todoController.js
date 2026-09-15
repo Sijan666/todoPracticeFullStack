@@ -105,7 +105,7 @@ const deletetodos = async (req, res) => {
     }
 }
 
-// updatetasks
+// update tasks
 const updatedata = async (req, res) => {
     try {
         const { id } = req.params;
