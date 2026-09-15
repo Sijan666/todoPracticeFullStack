@@ -79,7 +79,7 @@ const alltodo = async (req, res) => {
     }
 }
 
-// deletetasks
+// delete tasks
 const deletetodos = async (req, res) => {
     try {
         let { id } = req.params;
